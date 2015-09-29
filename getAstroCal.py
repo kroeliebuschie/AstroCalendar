@@ -38,7 +38,7 @@ def getDate(li, year):
        by combining it with "year" 
        it may also return multiple dates
        depending on the content'''
-    # print remove commas, plit the string to only get the month and day in a list
+    # print remove commas, split the string to only get the month and day in a list
     splitD = filter(None, re.sub(",", "", li.p.text).split("-")[0].split(" "))
     # save the date(s) into a list
     date   = [ (year, months[splitD[0]], int(day)) for day in splitD[1:] ] 
@@ -87,15 +87,17 @@ def addEvents(page, year, cal):
         dates = getDate(li, year)
         summ  = getSumm(li)
         descr = getDescr(li)
-        # sometimes a celestial event spans multiple days
-        for dat in dates:
-            event = Event()
-            event.add('summary', summ)
-            event.add('description', descr)
-            event.add('dtstart', date(*dat))
-            event.add('dtstamp', datetime.now())
-            event['uid'] = "".join([ str(cm) for cm in dat ]) + summ + "@seasky.org"
-            cal.add_component(event)
+        event = Event()
+        event.add('summary', summ)
+        event.add('description', descr)
+        event.add('dtstart', date(*dates[0]))
+
+        if len(dates) > 1: # sometimes a celestial event spans multiple days
+            event.add('dtend', date(*dates[-1]))
+
+        event.add('dtstamp', datetime.now())
+        event['uid'] = "".join([ str(cm) for cm in dates ]) + summ + "@seasky.org"
+        cal.add_component(event)
     return cal
 
 def main():
