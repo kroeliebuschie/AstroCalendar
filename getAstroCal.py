@@ -47,12 +47,12 @@ def getDate(li, year):
 
 def getSumm(li):
     '''retrieves the summary from "li"'''
-    splitD = li.p.text.split("-")[1].split(".")[0]
+    splitD = li.p.text.split("-")[1].split(".")[0].strip()
     return splitD
 
 def getDescr(li):
      ''' retrieves the description from "li" '''
-     splitD = ".".join(li.p.text.split(".")[1:])
+     splitD = (".".join(li.p.text.split(".")[1:])).strip()
      # seasky should be credited for their work
      splitD = splitD + " (copyright: http://www.seasky.org)"
      return splitD
