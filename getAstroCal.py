@@ -109,14 +109,14 @@ def addEvents(page, year, cal):
 
         if multidate: # sometimes a celestial event spans multiple days
             event.add('dtstart', dates[0])
-            event.add('dtend', dates[-1])
+            event.add('dtend', dates[-1] + timedelta(days=1))
 
         else:
             start = dates[0]
             time = extractTime(descr, start)
 
             if time:
-                delta = timedelta(hours=3)
+                delta = timedelta(hours=1)
                 event.add('dtstart', time - delta)
                 event.add('dtend', time + delta)
 
