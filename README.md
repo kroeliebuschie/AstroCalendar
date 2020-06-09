@@ -13,7 +13,8 @@ pipenv run python3 getAstroCal.py
 This will create an iCal file.
 
 ### How to edit?
-The script is set to make an iCal containing the events from 2018-2034. You can change this by editing line 33, add one to the last year.
+
+The script is set to make an iCal containing the events from 2020-2030. You can change this by editing line 33, add one to the last year.
 `years = [1969, 1985]` for example will set the range from 1969 to 1984.
 
 ### Legal notice

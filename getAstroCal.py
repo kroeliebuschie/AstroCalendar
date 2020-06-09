@@ -30,7 +30,7 @@ months = {'January': 1,
           'December': 12}
 # specify the range of years you would like to have
 # but dont forget to add 1 to the last year
-years = [2018, 2034]
+years = [2020, 2031]
 ical_f='astroCal.ics'
 
 def getDate(li, year):
