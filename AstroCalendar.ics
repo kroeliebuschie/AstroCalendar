@@ -2,10 +2,6 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Astronomical events//seasky.org//
 X-WR-CALNAME:AstroEvents
-X-WR-TIMEZONE:Europe/Amsterdam
-BEGIN:VTIMEZONE
-TZID:Europe/Amsterdam
-END:VTIMEZONE
 BEGIN:VEVENT
 SUMMARY:Quadrantids Meteor Shower
 DTSTART;VALUE=DATE:20200103

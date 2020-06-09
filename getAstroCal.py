@@ -70,10 +70,6 @@ def initCal():
     cal.add('version', '2.0')
     cal.add('prodid', '-//Astronomical events//seasky.org//')
     cal.add('x-wr-calname', 'AstroEvents')
-    cal.add('X-WR-TIMEZONE', 'Europe/Amsterdam')
-    newtimezone = Timezone()
-    newtimezone.add('tzid', "Europe/Amsterdam")
-    cal.add_component(newtimezone)
 
     return cal
 
