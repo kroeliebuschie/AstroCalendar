@@ -38,10 +38,10 @@ def getDate(li, year):
        by combining it with "year"
        it may also return multiple dates
        depending on the content'''
-    # print remove commas, split the string to only get the month and day in a list
+    # usually commas separating dates have an appended space. If that is not the case, insert one
     textCleaned = re.sub("(\d),(\d)", "\g<1>, \g<2>", li.p.text)
+    # remove commas, split the string to only get the month and day in a list
     splitD = filter(None, re.sub(",", "", textCleaned).split("-")[0].split(" "))
-    print splitD
     # save the date(s) into a list
     result_date   = [ date(year, months[splitD[0]], int(day)) for day in splitD[1:] ]
     return result_date
