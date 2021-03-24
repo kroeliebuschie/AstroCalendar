@@ -39,7 +39,9 @@ def getDate(li, year):
        it may also return multiple dates
        depending on the content'''
     # print remove commas, split the string to only get the month and day in a list
-    splitD = filter(None, re.sub(",", "", li.p.text).split("-")[0].split(" "))
+    textCleaned = re.sub("(\d),(\d)", "\g<1>, \g<2>", li.p.text)
+    splitD = filter(None, re.sub(",", "", textCleaned).split("-")[0].split(" "))
+    print splitD
     # save the date(s) into a list
     result_date   = [ date(year, months[splitD[0]], int(day)) for day in splitD[1:] ]
     return result_date
@@ -135,8 +137,11 @@ def main():
     for year in range(*years):
         URL = "http://www.seasky.org/astronomy/astronomy-calendar-%s.html"%year
         print URL
-        page  = urllib2.urlopen(URL)
-        cal = addEvents(page, year, cal)
+        try:
+            page  = urllib2.urlopen(URL)
+            cal = addEvents(page, year, cal)
+        except:
+            print("error fetching url", URL)
     saveIcal(cal)
 
 if __name__ == "__main__":
