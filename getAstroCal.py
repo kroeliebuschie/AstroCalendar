@@ -114,8 +114,12 @@ def addEvents(page, year, cal):
             event.add('dtend', dates[-1] + timedelta(days=1))
 
         else:
-            start = dates[0]
-            time = extractTime(descr, start)
+            if len(dates) == 0:
+                print("problem parsing date in item:\n%s"%(li))
+                continue
+            else:
+                start = dates[0]
+                time = extractTime(descr, start)
 
             if time:
                 delta = timedelta(hours=1)
