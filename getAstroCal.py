@@ -145,8 +145,7 @@ def main():
             page  = urllib2.urlopen(URL)
             cal = addEvents(page, year, cal)
         except Exception as e:
-            print("error fetching url", URL)
-            print(e)
+            print("error fetching url: %s."%(e))
     saveIcal(cal)
 
 if __name__ == "__main__":
