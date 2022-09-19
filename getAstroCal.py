@@ -38,8 +38,10 @@ def getDate(li, year):
        by combining it with "year"
        it may also return multiple dates
        depending on the content'''
-    # print remove commas, split the string to only get the month and day in a list
-    splitD = filter(None, re.sub(",", "", li.p.text).split("-")[0].split(" "))
+    # usually commas separating dates have an appended space. If that is not the case, insert one
+    textCleaned = re.sub("(\d),(\d)", "\g<1>, \g<2>", li.p.text)
+    # remove commas, split the string to only get the month and day in a list
+    splitD = filter(None, re.sub(",", "", textCleaned).split("-")[0].split(" "))
     # save the date(s) into a list
     result_date   = [ date(year, months[splitD[0]], int(day)) for day in splitD[1:] ]
     return result_date
@@ -112,8 +114,12 @@ def addEvents(page, year, cal):
             event.add('dtend', dates[-1] + timedelta(days=1))
 
         else:
-            start = dates[0]
-            time = extractTime(descr, start)
+            if len(dates) == 0:
+                print("problem parsing date in item:\n%s"%(li))
+                continue
+            else:
+                start = dates[0]
+                time = extractTime(descr, start)
 
             if time:
                 delta = timedelta(hours=1)
@@ -135,8 +141,11 @@ def main():
     for year in range(*years):
         URL = "http://www.seasky.org/astronomy/astronomy-calendar-%s.html"%year
         print URL
-        page  = urllib2.urlopen(URL)
-        cal = addEvents(page, year, cal)
+        try:
+            page  = urllib2.urlopen(URL)
+            cal = addEvents(page, year, cal)
+        except Exception as e:
+            print("error fetching url: %s."%(e))
     saveIcal(cal)
 
 if __name__ == "__main__":
